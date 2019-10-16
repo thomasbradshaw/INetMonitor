@@ -1,4 +1,4 @@
-﻿namespace InetMonitor.BAL
+﻿namespace InetMonitor.DAL
 {
     public interface IWriter
     {

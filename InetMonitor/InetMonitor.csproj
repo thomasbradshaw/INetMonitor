@@ -42,15 +42,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BAL\IpConnect.cs" />
-    <Compile Include="BAL\FileWriter.cs" />
-    <Compile Include="BAL\IConnect.cs" />
-    <Compile Include="BAL\IWriter.cs" />
+    <Compile Include="BAL\Connect.cs" />
+    <Compile Include="BAL\Util.cs" />
+    <Compile Include="DAL\FileWriter.cs" />
+    <Compile Include="DAL\INetwork.cs" />
+    <Compile Include="DAL\Internet.cs" />
+    <Compile Include="DAL\IWriter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

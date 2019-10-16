@@ -1,34 +1,41 @@
 ﻿using InetMonitor.BAL;
+using InetMonitor.DAL;
 using System;
 
 namespace InetMonitor
 {
-    public class Program
+  public class Program
+  {
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
+      if (args.Length > 0 && Util.IsValidIp(args[0]))
+      {
+        string ip = args[0];
+        INetwork network = new Internet();
+        IWriter fileWriter = new FileWriter(string.Format("{0}\\{1}_PingLog.txt", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), Util.ReplaceDots(ip)));
+        Connect connection = new Connect(network, fileWriter);
+
+        bool isCalled = false;
+        while (true)
         {
-            const string ipToPing = "8.8.8.8";
-
-            string docFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            IWriter fileWriter = new FileWriter(string.Format("{0}\\PingLog.txt", docFolder));
-            IConnect connection = new IpConnect(ipToPing, fileWriter);
-            bool isCalled = false;
-
-            while (true)
+          if (Util.IsTopOfMinute(DateTime.Now))
+          {
+            if (!isCalled)
             {
-                if (DateTime.Now.Second == 0)
-                {
-                    if (!isCalled)
-                    {
-                        connection.Ping();
-                        isCalled = true;
-                    }
-                }
-                else
-                {
-                    isCalled = false;
-                }
+              connection.Ping(ip);
+              isCalled = true;
             }
+          }
+          else
+          {
+            isCalled = false;
+          }
         }
+      }
+      else
+      {
+        Console.WriteLine("Unable to run - Bad IP");
+      }
     }
+  }
 }
